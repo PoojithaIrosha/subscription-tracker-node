@@ -3,6 +3,7 @@ import {PORT} from './config/env.js';
 import userRouter from "./routes/user.routes.js";
 import authRouter from "./routes/auth.routes.js";
 import subscriptionRouter from "./routes/subscription.router.js";
+import connectToDatabase from "./database/mongoose.js";
 
 const app = express();
 
@@ -14,6 +15,10 @@ app.get('/', (req, res) => {
     res.send("Subscription Tracker API");
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     console.log(`Subscription Server started on port ${PORT}`);
+
+    await connectToDatabase();
 })
+
+export default app;
